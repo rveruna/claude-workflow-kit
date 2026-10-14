@@ -64,6 +64,10 @@ output and the exit code is 0 (ready), 1 (not ready) or 2 (bad usage), so it dro
 `tests/example-summary.test.ts` shows the kind of test the second command produces, written against the
 invented budget app in `examples/`.
 
+[`docs/sample-run-refine-ticket.md`](docs/sample-run-refine-ticket.md) is a real run of `/refine-ticket` on the
+not-ready sample ticket, so you can see the output without installing anything. `/write-ac-tests` has not been
+run end to end yet.
+
 ## How it is tested
 
 - 41 tests, 97.7% statement and 98.6% branch coverage, with thresholds enforced in CI.
