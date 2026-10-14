@@ -1,0 +1,22 @@
+{
+  "name": "claude-workflow-kit",
+  "version": "0.1.0",
+  "description": "A deterministic ticket-readiness linter plus Claude Code commands for refining tickets and turning acceptance criteria into tests.",
+  "scripts": {
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "demo": "tsx src/cli.ts tickets/*.md",
+    "mutation-check": "python3 scripts/mutation-check.py"
+  },
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@vitest/coverage-v8": "^5.0.4",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.4"
+  },
+  "private": true
+}
