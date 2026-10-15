@@ -30,7 +30,8 @@ describe('cli', () => {
   });
 
   it('treats warnings as failures with --strict', () => {
-    const content = '# T\nType: chore\n\n## Summary\nTidy up the build scripts so they are quick to run locally.\n\n## Acceptance criteria\n- Running the build shows no warnings.\n';
+    const content =
+      '# T\nType: chore\n\n## Summary\nTidy up the build scripts so they are quick to run locally.\n\n## Acceptance criteria\n- Running the build shows no warnings.\n';
     expect(run(['t.md'], () => content).code).toBe(0);
     expect(run(['--strict', 't.md'], () => content).code).toBe(1);
   });

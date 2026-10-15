@@ -56,11 +56,16 @@ describe('summary-present', () => {
 
 describe('criteria rules', () => {
   it('requires acceptance criteria', () => {
-    expect(ruleIds(GOOD_UI.replace(/## Acceptance criteria[\s\S]*## Design/, '## Design'))).toContain('criteria-present');
+    expect(ruleIds(GOOD_UI.replace(/## Acceptance criteria[\s\S]*## Design/, '## Design'))).toContain(
+      'criteria-present',
+    );
   });
 
   it('warns about criteria with no observable outcome, with the line number', () => {
-    const content = GOOD_UI.replace('- Given no data, then the empty state is shown.', '- The screen handles empty data gracefully');
+    const content = GOOD_UI.replace(
+      '- Given no data, then the empty state is shown.',
+      '- The screen handles empty data gracefully',
+    );
     const finding = lintTicket('t.md', content).findings.find((f) => f.rule === 'criteria-observable');
     expect(finding?.line).toBe(9);
     expect(finding?.message).toContain('handles empty data gracefully');
@@ -91,7 +96,9 @@ describe('UI-only rules', () => {
   });
 
   it('accepts states described in a separate States section', () => {
-    const content = GOOD_UI.replace(/- Given no data.*\n- Given loading.*\n- Given a failure.*\n/, '') + '\n## States\nLoading, error and empty are covered by the design.\n';
+    const content =
+      GOOD_UI.replace(/- Given no data.*\n- Given loading.*\n- Given a failure.*\n/, '') +
+      '\n## States\nLoading, error and empty are covered by the design.\n';
     expect(ruleIds(content)).not.toContain('ui-states');
   });
 
@@ -118,8 +125,10 @@ describe('questions-resolved', () => {
 
 describe('result ordering and rule catalogue', () => {
   it('orders findings by line number', () => {
-    const lines = lintTicket('t.md', '# T\nType: ui\n\n## Summary\nhi\n\n## Acceptance criteria\n- be nice\n- be fast\n').findings
-      .map((f) => f.line ?? 0);
+    const lines = lintTicket(
+      't.md',
+      '# T\nType: ui\n\n## Summary\nhi\n\n## Acceptance criteria\n- be nice\n- be fast\n',
+    ).findings.map((f) => f.line ?? 0);
     expect(lines).toEqual([...lines].sort((a, b) => a - b));
   });
 
