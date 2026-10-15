@@ -1,6 +1,7 @@
 # claude-workflow-kit
 
 [![CI](https://github.com/rveruna/claude-workflow-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/rveruna/claude-workflow-kit/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/rveruna/claude-workflow-kit/actions/workflows/codeql.yml/badge.svg)](https://github.com/rveruna/claude-workflow-kit/actions/workflows/codeql.yml)
 
 Tickets that reach developers half-defined cost more than any bug: someone builds the wrong thing, or
 stops to ask questions that could have been answered a week earlier. This kit checks a ticket **before**
@@ -73,6 +74,14 @@ run end to end yet.
 - 41 tests, 97.7% statement and 98.6% branch coverage, with thresholds enforced in CI.
 - Tests include the real command line: exit codes are checked by running the CLI as a process.
 - `npm run mutation-check` breaks each rule on purpose, 12 ways in all, and expects a test to fail every time (12 of 12 caught).
+
+## Practices
+
+- **CI on every push:** lint, a Prettier check, an audit of production dependencies (high severity and above), the type-check, the tests with coverage, the mutation check, and the sample tickets that should be ready.
+- **Before every commit:** a Husky hook formats and lints the staged files.
+- **Kept current and watched:** Dependabot groups weekly updates, and CodeQL scans every push.
+- **Decisions are written down:** [docs/decisions](docs/decisions) records the choices that were not obvious, starting with [why code decides the rules and a model handles judgement](docs/decisions/0001-deterministic-rules-for-rules-a-model-for-judgement.md).
+- **No runtime dependencies:** the tool uses only Node, so there is nothing to audit in production.
 
 ## Limits
 
