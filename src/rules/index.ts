@@ -4,14 +4,53 @@ import type { Finding, Rule, Ticket } from '../types.js';
 const MIN_SUMMARY_WORDS = 8;
 
 const VAGUE_TERMS = [
-  'fast', 'quick', 'quickly', 'easy', 'easily', 'intuitive', 'user-friendly', 'nice', 'good',
-  'seamless', 'properly', 'appropriate', 'appropriately', 'as needed', 'etc', 'and so on', 'simple',
+  'fast',
+  'quick',
+  'quickly',
+  'easy',
+  'easily',
+  'intuitive',
+  'user-friendly',
+  'nice',
+  'good',
+  'seamless',
+  'properly',
+  'appropriate',
+  'appropriately',
+  'as needed',
+  'etc',
+  'and so on',
+  'simple',
 ];
 
 const OBSERVABLE_VERBS = [
-  'shows', 'displays', 'returns', 'rejects', 'sends', 'saves', 'disables', 'enables', 'navigates',
-  'announces', 'redirects', 'hides', 'creates', 'deletes', 'updates', 'stores', 'logs', 'blocks',
-  'allows', 'fails', 'succeeds', 'appears', 'renders', 'prevents', 'redirected', 'shown', 'saved',
+  'shows',
+  'displays',
+  'returns',
+  'rejects',
+  'sends',
+  'saves',
+  'disables',
+  'enables',
+  'navigates',
+  'announces',
+  'redirects',
+  'hides',
+  'creates',
+  'deletes',
+  'updates',
+  'stores',
+  'logs',
+  'blocks',
+  'allows',
+  'fails',
+  'succeeds',
+  'appears',
+  'renders',
+  'prevents',
+  'redirected',
+  'shown',
+  'saved',
 ];
 
 const URL = /https?:\/\/\S+/i;
@@ -24,8 +63,7 @@ function mentions(text: string, word: string): boolean {
 const titlePresent: Rule = {
   id: 'title-present',
   description: 'A ticket has a title.',
-  check: (t) =>
-    t.title ? [] : [{ rule: 'title-present', severity: 'error', message: 'Add a "# Title" heading.' }],
+  check: (t) => (t.title ? [] : [{ rule: 'title-present', severity: 'error', message: 'Add a "# Title" heading.' }]),
 };
 
 const typeDeclared: Rule = {
@@ -86,14 +124,12 @@ const noVagueLanguage: Rule = {
   check: (t) => {
     const lines = [...(t.sections.get('summary') ?? []), ...(t.sections.get('acceptance criteria') ?? [])];
     return lines.flatMap(({ text, line }) =>
-      VAGUE_TERMS.filter((term) => mentions(text, term)).map(
-        (term): Finding => ({
-          rule: 'no-vague-language',
-          severity: 'warning',
-          message: `"${term}" cannot be verified. Give a measurable or observable alternative.`,
-          line,
-        }),
-      ),
+      VAGUE_TERMS.filter((term) => mentions(text, term)).map((term): Finding => ({
+        rule: 'no-vague-language',
+        severity: 'warning',
+        message: `"${term}" cannot be verified. Give a measurable or observable alternative.`,
+        line,
+      })),
     );
   },
 };
